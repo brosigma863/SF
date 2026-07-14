@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch Finds | Art with a Purpose</title>
+    <!-- Google Fonts for Premium Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #111111;
+            --accent-color: #8c8275;
+            --impact-color: #5a7361; /* Soft gallery green for social impact elements */
+            --bg-light: #fcfbfa;
+            --bg-card: #f7f5f2;
+            --text-muted: #555555;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            color: var(--primary-color);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .section-padding {
+            padding: 5rem 0;
+        }
+        .text-center { text-align: center; }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(252, 251, 250, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        .logo-tagline {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-top: -2px;
+            font-weight: 500;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        .btn-nav {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--impact-color);
+            color: var(--impact-color) !important;
+            font-weight: 500;
+            transition: all 0.3s !important;
+        }
+        .btn-nav:hover {
+            background-color: var(--impact-color);
+            color: #fff !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+                        url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600&auto=format&fit=crop&q=80') no-repeat center center/cover;
+            color: #ffffff;
+        }
+        .hero-content {
+            max-width: 750px;
+        }
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-color: rgba(90, 115, 97, 0.4);
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.8rem;
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        /* Interactive Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+        .btn-gallery-wrapper {
+            margin-top: 3.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        .btn-gallery-trigger {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: 1px solid var(--primary-color);
+        }
+        .btn-gallery-trigger:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Section Layouts */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.6rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 3.5rem;
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .pillar-card {
+            padding: 2.5rem;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            text-align: left;
+            border-top: 3px solid var(--accent-color);
+        }
+        .pillar-card.impact-border {
+            border-top: 3px solid var(--impact-color);
+        }
+        .pillar-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        .pillar-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Combined "Our Story" & "Founder Message" Section */
+        .story-section {
+            background-color: var(--bg-card);
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .story-wrapper {
+            display: flex;
+            align-items: stretch;
+            gap: 4.5rem;
+        }
+        .story-visuals {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .story-img-frame {
+            height: 380px;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .story-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .founder-quote-box {
+            background-color: #ffffff;
+            border-left: 4px solid var(--impact-color);
+            padding: 2rem;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .founder-quote-box p {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #2c3e31;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .founder-signature {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        .story-content-box {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .story-content-box .meta-badge {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--impact-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .story-content-box h2 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .story-content-box p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* NGO Partnership Detail Section */
+        .impact-detail-section {
+            background-color: #ffffff;
+        }
+        .impact-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+        .impact-text {
+            flex: 1.2;
+        }
+        .impact-text h2 {
+            font-family: var(--font-heading);
+            font-size: 2.6rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #2c3e31;
+        }
+        .impact-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        .impact-image {
+            flex: 1;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .impact-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Marketplace Painting Listings Space */
+        .painting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .painting-card {
+            background-color: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .painting-card:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+        }
+        .image-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f0f0f0;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .artist-tag {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+        }
+        .artist-tag.impact-tag {
+            background: var(--impact-color);
+            color: #ffffff;
+        }
+        .painting-details {
+            padding: 1.75rem;
+        }
+        .painting-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .painting-medium {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+        }
+        .painting-specs {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 0.6rem 0;
+            margin-bottom: 1.25rem;
+        }
+        .painting-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .painting-price {
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+        .btn-sm {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn-sm:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* NEW SECTION: Submit Your Art Online Form */
+        .submit-art-section {
+            background-color: var(--bg-card);
+            border-top: 1px solid #eee;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 3rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            background-color: var(--bg-light);
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--impact-color);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .file-input-wrapper {
+            border: 2px dashed #ccc;
+            padding: 2rem;
+            text-align: center;
+            background-color: var(--bg-light);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .file-input-wrapper:hover {
+            background-color: #f2ede9;
+            border-color: var(--accent-color);
+        }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--impact-color);
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        .btn-submit:hover {
+            background-color: #475c4d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 4rem 0 2rem 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-logo .logo-text {
+            color: #ffffff;
+        }
+        .copyright {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Responsive Layout fixes */
+        @media (max-width: 992px) {
+            .story-wrapper { flex-direction: column; gap: 3rem; }
+            .impact-wrapper { flex-direction: column-reverse; gap: 3rem; }
+            .impact-image { width: 100%; height: 300px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.6rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+            .form-container { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo-area">
+                <a href="#" class="logo-text">Sketch Finds</a>
+                <span class="logo-tagline">An initiative to connect art lovers</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#shop">Explore Art</a></li>
+                <li><a href="#story">Our Story</a></li>
+                <li><a href="#impact">NGO Partnerships</a></li>
+                <li><a href="#submit-art" class="btn-nav">Submit Your Art</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">🎨 Art that Empowers & Uplifts</span>
+                <h1>Every Canvas Tells a Story. Some Change Lives.</h1>
+                <p>Welcome to Sketch Finds—a curated destination for high-end, original hand-painted art created by talented young creators, alongside beautiful collections from orphaned and underserved children supported by global NGOs.</p>
+                <a href="#submit-art" class="btn">Join as an Artist</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Split Ecosystem Model -->
+    <section id="mission" class="section-padding text-center">
+        <div class="container">
+            <h2 class="section-title">One Platform. Dual Impact.</h2>
+            <p class="section-subtitle">Founded by a 12-year-old artist, Sketch Finds is engineered to uplift young voices while providing vital care to orphaned and underserved children through creativity.</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <h3>Independent Young Artists</h3>
+                    <p>Talented kids and teens get a premium gallery space to sell their masterpieces. The largest portion goes right to the creator to build their artistic future and fund supplies.</p>
+                </div>
+                <div class="pillar-card impact-border">
+                    <h3>NGO & Orphanage Support</h3>
+                    <p>We provide a completely free platform for orphaned and underprivileged children to list their art. <strong>100% of the artist's proceeds</strong> from these collections go directly to their local NGO for education and welfare.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Sustaining the Dream</h3>
+                    <p>A minor platform fee ensures our 12-year-old founder can keep updating the website, shipping materials safely to partner orphanages, and expanding the mission globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story & Message From Founder Section -->
+    <section id="story" class="section-padding story-section">
+        <div class="container">
+            <div class="story-wrapper">
+                
+                <!-- Left Side: Studio Photo Frame + Core Founder Quote Box -->
+                <div class="story-visuals">
+                    <div class="story-img-frame">
+                        <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&auto=format&fit=crop&q=80" alt="Sketch Finds Home Studio Space">
+                    </div>
+                    
+                    <div class="founder-quote-box">
+                        <p>“I believe creativity doesn’t care how old you are or where you come from. When I hold a paintbrush, I feel powerful—and I want every single child, especially those facing hardships, to feel that exact same strength.”</p>
+                        <div class="founder-signature">— The Founder, Age 12</div>
+                    </div>
+                </div>
+                
+                <!-- Right Side: The Narrative Story of the Enterprise -->
+                <div class="story-content-box">
+                    <span class="meta-badge">THE SKETCH FINDS MOVEMENT</span>
+                    <h2>How a Small Studio Sparked Global Hope</h2>
+                    <p>Sketch Finds began with just a single box of acrylic paints, heavy plaster texture media, and a big dream. Founded by a passionate 12-year-old artist, the platform originally set out to solve a simple problem: providing genuine, hand-layered canvases to art lovers who were tired of boring, mass-produced wall prints.</p>
+                    <p>But as the home studio filled with completed canvases, a larger purpose took root. Our young founder realized that millions of incredibly talented kids, teens, and underprivileged children living in orphanages have beautiful internal worlds to share—but completely lack the resources, art supplies, or a digital platform to voice them.</p>
+                    <p>Today, Sketch Finds has grown from a personal art portfolio into a thriving social enterprise. By opening our doors to young creators and partnering directly with global child welfare NGOs, we are proving that the next generation doesn't just make art—we build communities and change lives.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Dedicated Social Impact Focus Section -->
+    <section id="impact" class="section-padding impact-detail-section">
+        <div class="container">
+            <div class="impact-wrapper">
+                <div class="impact-text">
+                    <h2>Turning Creativity Into Care</h2>
+                    <p>At Sketch Finds, we believe every child possesses an innate creative spark. Through our dedicated <strong>NGO Art Initiative</strong>, our team coordinates with local child welfare organizations to supply high-quality canvases, brushes, and acrylic paint kits directly to orphanages.</p>
+                    <p>When you acquire a piece from our NGO collections, you aren't just decorating an interior wall—you are providing vital educational tools, funding shelter resources, and proving to a vulnerable child that their voice has immense value to the world.</p>
+                    <a href="#shop" class="btn" style="background-color: var(--impact-color); color: #fff;">Shop Impact Collections</a>
+                </div>
+                <div class="impact-image">
+                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&auto=format&fit=crop&q=80" alt="Children painting in creative workshop">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Painting Listings Space -->
+    <section id="shop" class="section-padding" style="background-color: #ffffff;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">The Gallery Collection</h2>
+                <p class="section-subtitle">Invest in original contemporary fine art. Look for the green badges to support our NGO partners.</p>
+            </div>
+            
+            <div class="painting-grid">
+                <!-- Painting Card 1 -->
+                <div class="painting-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80" alt="Ethereal Textures No. 7">
+                        <div class="artist-tag">By Founder (Age 12)</div>
+                    </div>
+                    <div class="painting-details">
+                        <h3 class="painting-title">Ethereal Textures No. 7</h3>
+                        <p class="painting-medium">Textured Acrylic on Canvas</p>
+                        <p class="painting-specs">24" × 36" | Neutrals & Gold Leaf</p>
+                        <div class="painting-footer">
+                            <span class="painting-price">₹26,500</span>
+                            <a href="#" class="btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painting Card 2 -->
+                <div class="painting-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&auto=format&fit=crop&q=80" alt="Joyful Horizons">
+                        <div class="artist-tag impact-tag">🤝 Hope NGO Partnership</div>
+                    </div>
+                    <div class="painting-details">
+                        <h3 class="painting-title">Joyful Horizons</h3>
+                        <p class="painting-medium">Heavy Plaster & Bright Acrylics</p>
+                        <p class="painting-specs">30" × 40" | Created by Rahul (Age 11)</p>
+                        <div class="painting-footer">
+                            <span class="painting-price">₹31,500</span>
+                            <a href="#" class="btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painting Card 3 -->
+                <div class="painting-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?w=600&auto=format&fit=crop&q=80" alt="Serenity Strokes">
+                        <div class="artist-tag">By Sofia (Age 14)</div>
+                    </div>
+                    <div class="painting-details">
+                        <h3 class="painting-title">Serenity Strokes</h3>
+                        <p class="painting-medium">Heavy Body Fluid Acrylic</p>
+                        <p class="painting-specs">36" × 48" | Oceanic Blue & Cream</p>
+                        <div class="painting-footer">
+                            <span class="painting-price">₹42,000</span>
+                            <a href="#" class="btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dedicated Gallery Target Entry Button -->
+            <div class="btn-gallery-wrapper">
+                <a href="gallery.html" class="btn btn-gallery-trigger">Explore Full Studio Gallery &rarr;</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Online Submission Portal -->
+    <section id="submit-art" class="section-padding submit-art-section">
+        <div class="container text-center">
+            <h2 class="section-title">Showcase Your Art With Us</h2>
+            <p class="section-subtitle">Are you a young artist under the age of 18? Or are you an NGO coordinator looking to list children's art? Fill out the form below online to submit your artwork to our curating team.</p>
+            
+            <div class="form-container">
+                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you for submitting your beautiful art to Sketch Finds! Our founder and team will review your application soon.');">
+                    <div class="form-grid">
+                        <!-- Artist Name -->
+                        <div class="form-group">
+                            <label for="artist-name">Artist Name</label>
+                            <input type="text" id="artist-name" placeholder="e.g., Emily Smith" required>
+                        </div>
+                        <!-- Artist Age -->
+                        <div class="form-group">
+                            <label for="artist-age">Artist Age</label>
+                            <input type="number" id="artist-age" placeholder="e.g., 13" min="3" max="18" required>
+                        </div>
+                        <!-- Applicant Profile Type -->
+                        <div class="form-group full-width">
+                            <label for="profile-type">Who is submitting this artwork?</label>
+                            <select id="profile-type" required>
+                                <option value="" disabled selected>Select submission type</option>
+                                <option value="independent">Independent Young Artist (Parent/Guardian assisted)</option>
+                                <option value="ngo">NGO Representative / Orphanage Coordinator</option>
+                            </select>
+                        </div>
+                        <!-- Parent/Guardian or Org Contact Name -->
+                        <div class="form-group full-width">
+                            <label for="contact-name">Parent or Coordinator Name</label>
+                            <input type="text" id="contact-name" placeholder="Full legal name" required>
+                        </div>
+                        <!-- Contact Email -->
+                        <div class="form-group">
+                            <label for="contact-email">Contact Email Address</label>
+                            <input type="email" id="contact-email" placeholder="e.g., parent@mail.com" required>
+                        </div>
+                        <!-- Contact Phone Field -->
+                        <div class="form-group">
+                            <label for="contact-phone">Contact Phone Number</label>
+                            <input type="tel" id="contact-phone" placeholder="e.g., +1 (555) 000-0000" required>
+                        </div>
+                        <!-- Painting Title -->
+                        <div class="form-group">
+                            <label for="art-title">Artwork Title</label>
+                            <input type="text" id="art-title" placeholder="e.g., Sunset Waves" required>
+                        </div>
+                        <!-- Painting Medium -->
+                        <div class="form-group">
+                            <label for="art-medium">Medium & Materials Used</label>
+                            <input type="text" id="art-medium" placeholder="e.g., Textured Acrylic on Canvas" required>
+                        </div>
+                        <!-- Short Story / Bio -->
+                        <div class="form-group full-width">
+                            <label for="art-story">The Story Behind the Painting</label>
+                            <textarea id="art-story" placeholder="Tell us what inspired this artwork, or share the young artist's dream!" required></textarea>
+                        </div>
+                        <!-- Photo Upload Space -->
+                        <div class="form-group full-width">
+                            <label>Upload High-Res Photo of the Artwork</label>
+                            <div class="file-input-wrapper" onclick="document.getElementById('art-file').click();">
+                                <span style="font-size: 2rem; display:block; margin-bottom: 0.5rem;">📸</span>
+                                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">Click to select or drag your painting's picture here</span>
+                                <input type="file" id="art-file" accept="image/*" style="display: none;" required onchange="alert('Image chosen successfully!');">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit Trigger Button -->
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo-area footer-logo">
+                    <a href="#" class="logo-text">Sketch Finds</a>
+                    <span class="logo-tagline" style="color: #888;">An initiative to connect art lovers</span>
+                </div>
+                <div>
+                    <p style="font-size: 0.9rem; color: #aaa;">Bridging fine art with deep social responsibility.</p>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2026 sketchfinds.com. Empowering underserved voices worldwide.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
